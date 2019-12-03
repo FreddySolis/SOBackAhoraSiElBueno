@@ -10,9 +10,6 @@ from rest_framework import generics
 from registro.models import Registro
 from registro.serializer import RegistroSerializers
 
-from carrera.models import Carrera
-from carrera.serializer import CarreraSerializers
-
 from django.contrib.auth import authenticate
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authtoken.models import Token
@@ -34,12 +31,9 @@ class RegistroList(APIView):
 
     def post(self, request, format=None):
         print(request.POST)
-        try:
-            datas = Carrera.objects.get(id=request.POST['carrera'])
-        except:
-            return Response(404)
+       
         
-        datos = {'name':request.POST['name'], 'lastname':request.POST['lastname'],'age':request.POST['age'], 'gender':request.POST['gender'], 'address':request.POST['address'], 'carrera':request.POST['carrera'], 'carrera_id':request.POST['carrera']}
+        datos = {'name':request.POST['name'], 'lastname':request.POST['lastname'],'age':request.POST['age'], 'gender':request.POST['gender'], 'address':request.POST['address'],  'carrera':request.POST['carrera']}
         serializer = RegistroSerializers(data=datos)
         if serializer.is_valid():
             serializer.save()
@@ -64,7 +58,7 @@ class RegistroDetail(APIView):
 
     def put(self, request, id, format=None):
         registro = self.get_object(id)
-        datos = {'name':request.POST['name'], 'lastname':request.POST['lastname'],'age':request.POST['age'], 'gender':request.POST['gender'], 'address':request.POST['address'], 'carrera':request.POST['carrera'], 'carrera_id':request.POST['carrera']}
+        datos = {'name':request.POST['name'], 'lastname':request.POST['lastname'],'age':request.POST['age'], 'gender':request.POST['gender'], 'address':request.POST['address'], 'carrera':request.POST['carrera']}
         if registro != 404:
             serializer = RegistroSerializers(registro, data=datos)
             if serializer.is_valid():

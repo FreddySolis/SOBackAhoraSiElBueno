@@ -9,9 +9,6 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        ('carrera', '0001_initial'),
-    ]
 
     operations = [
         migrations.CreateModel(
@@ -23,8 +20,9 @@ class Migration(migrations.Migration):
                 ('age', models.CharField(max_length=254)),
                 ('gender', models.CharField(max_length=254)),
                 ('address', models.CharField(max_length=254)),
+                ('carrera', models.CharField(max_length=254)),
                 ('create', models.DateTimeField(default=django.utils.timezone.now)),
-                ('carrera', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='career', to='carrera.Carrera')),
+                
             ],
             options={
                 'db_table': 'registro',

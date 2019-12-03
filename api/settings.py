@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
-    'carrera',
     'registro',
     'corsheaders'
 ]
@@ -101,7 +100,7 @@ WSGI_APPLICATION = 'api.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'testtoken',
+        'NAME': 'testtoken2',
         'USER': 'postgres',
         'PASSWORD': 'root1234',
         'HOST': 'postgre.ctukpki4sxlw.us-east-1.rds.amazonaws.com',
