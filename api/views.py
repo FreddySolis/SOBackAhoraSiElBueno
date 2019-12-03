@@ -10,14 +10,15 @@ from rest_framework.status import (
     HTTP_200_OK
 )
 from rest_framework.response import Response
-
+import json
 
 @csrf_exempt
 @api_view(["POST"])
 @permission_classes((AllowAny,))
 def login(request):
-    username = request.data.get("username")
-    password = request.data.get("password")
+    received_json_data=json.loads(request.body)
+    username = received_json_data["username"]
+    password = received_json_data["password"]
     if username is None or password is None:
         return Response({'error': 'Please provide both username and password'},
                         status=HTTP_400_BAD_REQUEST)

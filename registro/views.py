@@ -21,6 +21,7 @@ from rest_framework.status import (
     HTTP_200_OK,
     HTTP_204_NO_CONTENT
 )
+import json
 
 class RegistroList(APIView):
 
@@ -30,10 +31,12 @@ class RegistroList(APIView):
         return Response(serializer.data)
 
     def post(self, request, format=None):
-        print(request.POST)
-       
         
-        datos = {'name':request.POST['name'], 'lastname':request.POST['lastname'],'age':request.POST['age'], 'gender':request.POST['gender'], 'address':request.POST['address'],  'carrera':request.POST['carrera']}
+        received_json_data=json.loads(request.body)
+        
+
+        print(received_json_data)
+        datos = {'name':received_json_data["name"], 'lastname':received_json_data["lastname"],'age':received_json_data["age"], 'gender':received_json_data["gender"], 'address':received_json_data["address"],  'carrera':received_json_data["carrera"]}
         serializer = RegistroSerializers(data=datos)
         if serializer.is_valid():
             serializer.save()
@@ -58,7 +61,8 @@ class RegistroDetail(APIView):
 
     def put(self, request, id, format=None):
         registro = self.get_object(id)
-        datos = {'name':request.POST['name'], 'lastname':request.POST['lastname'],'age':request.POST['age'], 'gender':request.POST['gender'], 'address':request.POST['address'], 'carrera':request.POST['carrera']}
+        received_json_data=json.loads(request.body)
+        datos = {'name':received_json_data["name"], 'lastname':received_json_data["lastname"],'age':received_json_data["age"], 'gender':received_json_data["gender"], 'address':received_json_data["address"],  'carrera':received_json_data["carrera"]}
         if registro != 404:
             serializer = RegistroSerializers(registro, data=datos)
             if serializer.is_valid():
@@ -68,7 +72,7 @@ class RegistroDetail(APIView):
             else:
                 return Response(registro, status = HTTP_400_BAD_REQUEST)
     
-    def delete(self,request,id, format=None):
+    def delete(self,request, id, format=None):
         registro = self.get_object(id)
         if registro != 404:
             registro.delete()
