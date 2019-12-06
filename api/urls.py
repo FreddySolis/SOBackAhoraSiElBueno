@@ -24,6 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/login', login),
     path('api/v1/sampleapi', sample_api),
-    re_path(r'^api/v1/r', include('registro.urls')),
+    re_path('api/v1/', include('registro.urls')),
 
 ]
